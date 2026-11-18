@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+# === CONFIGURASI GAMBAR ===
+# Ganti dengan path lokasi gambar PNG kamu yang sebenarnya
+IMG_PATH="/home/nanoarch/Pictures/avatar/avatar6.png"
+
+# Ukuran gambar dalam % dari jendela terminal (25x25 = kotak 1:1 sempurna)
+IMG_SIZE="25x25"
+
+# === SKEMA WARNA ANSI ===
+RESET="\e[0m"
+BOLD="\e[1m"
+NEON_BLUE="\e[38;2;176;204;230m"
+PINK="\e[38;2;176;204;230m"
+BIRU="\e[38;2;186;212;227m"
+
+# === 1. PENGUMPULAN DATA SISTEM ===
+USER_NAME=$(whoami)
+OS=$(awk -F= '/^NAME=/{print $2}' /etc/os-release | tr -d '"')
+
+# Mengambil RAM Usage
+RAM_TOTAL=$(free -m | awk '/^Mem:/{print $2}')
+RAM_USED=$(free -m | awk '/^Mem:/{print $3}')
+RAM_PERCENT=$((RAM_USED * 100 / RAM_TOTAL))
+
+# Mengambil Disk Usage
+DISK_TOTAL=$(df -h / | awk 'NR==2 {print $2}')
+DISK_USED=$(df -h / | awk 'NR==2 {print $3}')
+DISK_PERCENT=$(df -h / | awk 'NR==2 {print $5}')
+
+# Mengambil CPU Usage
+CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}')
+
+uptime=$(uptime -p | sed 's/^up //')
+
+# === 2. MENYUSUN INFORMASI SEBELAH KANAN ===
+INFO=()
+INFO+=("${BOLD}${NEON_BLUE}OLA!  ${RESET}${BIRU}${USER_NAME}${RESET}")
+INFO+=("${BOLD}${NEON_BLUE}     ${RESET}${BIRU}${OS} (BTW)")
+INFO+=("${BOLD}${PINK}     ${RESET}${BIRU}${RAM_USED} MB / ${RAM_TOTAL} MB (${RAM_PERCENT}%)")
+INFO+=("${BOLD}${PINK}     ${RESET}${BIRU}${DISK_USED} / ${DISK_TOTAL} (${DISK_PERCENT})")
+INFO+=("${BOLD}${PINK}     ${RESET}${BIRU}${CPU_USAGE}")
+INFO+=("${BOLD}${PINK}     ${RESET}${BIRU}${uptime}")
+
+# === 3. PROSES CETAK GABUNGAN ===
+IMG_W=20
+IMG_H=10
+
+echo                                         # satu baris kosong saja
+for ((i = 0; i < IMG_H; i++)); do echo; done # sisakan ruang untuk blok fetch
+
+IFS='[;' read -rsdR -p $'\e[6n' _ ROW COL
+TOP=$((ROW - IMG_H - 1)) # baris awal blok fetch (mulai dari 0)
+
+if [ -f "$IMG_PATH" ]; then
+  kitty +kitten icat --transfer-mode=memory --stdin=no \
+    --place "${IMG_W}x${IMG_H}@0x${TOP}" --scale-up "$IMG_PATH"
+fi
+
+row=$((TOP + 1))
+for line in "${INFO[@]}"; do
+  tput cup "$row" $((IMG_W + 3))
+  echo -e "$line"
+  ((row++))
+done
+
+tput cup $((TOP + IMG_H)) 0
