@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# 1. Ambil screenshot dan buat efek blur (Butuh imagemagick)
+import -window root /tmp/screen.png
+convert /tmp/screen.png -blur 0x8 /tmp/screen_blur.png
+
+# 2. Munculkan Rofi Kotak Melengkung terlebih dahulu untuk verifikasi password
+PASSWORD=$(rofi -dmenu -password -theme ~/.config/rofi/lock.rasi -p "🔒" -config /dev/null)
+
+# 3. Validasi Password
+# Jika user menekan ESC (kosong) atau password salah, langsung lempar ke i3lock asli demi keamanan
+if [ -z "$PASSWORD" ]; then
+    # Jika rofi ditutup paksa / di-cancel, sistem langsung dikunci i3lock bawaan
+    i3lock -i /tmp/screen_blur.png -c 000000
+else
+    # Memverifikasi apakah password yang diketik benar
+    if echo "$PASSWORD" | sudo -S -u $USER true 2>/dev/null; then
+        # Jika BENAR, bersihkan temporary file dan biarkan masuk desktop
+        rm /tmp/screen.png /tmp/screen_blur.png
+    else
+        # Jika SALAH, kunci total pakai i3lock standar (Fallback Aman)
+        i3lock -i /tmp/screen_blur.png -c 000000
+    fi
+fi
+
+# Bersihkan file sisa jika masih ada
+rm -f /tmp/screen.png /tmp/screen_blur.png

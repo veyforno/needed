@@ -1,0 +1,90 @@
+#!/usr/bin/env python3
+import curses
+import locale
+import random
+
+locale.setlocale(locale.LC_ALL, "")
+
+def main(stdscr):
+    curses.curs_set(0)
+    stdscr.nodelay(True)
+    stdscr.timeout(0)
+
+    curses.start_color()
+    curses.use_default_colors()
+    curses.init_pair(1, 255, curses.COLOR_BLACK)
+    curses.init_pair(2, 248, curses.COLOR_BLACK)
+    curses.init_pair(3, 238, curses.COLOR_BLACK)
+    stdscr.bkgd(' ', curses.color_pair(2))
+
+    HEAD = curses.color_pair(1) | curses.A_BOLD
+    BODY = curses.color_pair(2)
+    TAIL = curses.color_pair(2) | curses.A_DIM
+
+    chars = tuple("ｦｱｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0123456789")
+    rand_choice = random.choice
+    rand_int = random.randint
+
+    max_y, max_x = stdscr.getmaxyx()
+    drops = [rand_int(-max_y, 0) for _ in range(max_x)]
+    speeds = [rand_int(1, 2) for _ in range(max_x)]
+    tick = 0
+
+    while True:
+        key = stdscr.getch()
+        if key == ord('q'):
+            break
+        elif key == ord('+') or key == ord('='):
+            delay = max(5, delay - 1)
+        elif key == ord('-'):
+            delay = min(200, delay + 25)
+        elif key == ord('1'):
+            curses.init_pair(2, curses.COLOR_GREEN, -1)
+        elif key == ord('2'):
+            curses.init_pair(2, curses.COLOR_CYAN, -1)
+        elif key == ord('3'):
+            curses.init_pair(2, curses.COLOR_RED, -1)
+        elif key == ord('4'):
+            curses.init_pair(2, curses.COLOR_MAGENTA, -1)
+
+        new_y, new_x = stdscr.getmaxyx()
+        if (new_y, new_x) != (max_y, max_x):
+            max_y, max_x = new_y, new_x
+            drops = [rand_int(-max_y, 0) for _ in range(max_x)]
+            speeds = [rand_int(1, 2) for _ in range(max_x)]
+            stdscr.erase()
+
+        addstr = stdscr.addstr
+        for x in range(max_x - 1):
+            if tick % speeds[x] != 0:
+                continue
+
+            y = drops[x]
+
+            if 0 <= y < max_y:
+                addstr(y, x, rand_choice(chars), HEAD)
+            if 0 <= y - 1 < max_y:
+                addstr(y - 1, x, rand_choice(chars), BODY)
+            if 0 <= y - 6 < max_y:
+                addstr(y - 6, x, rand_choice(chars), TAIL)
+
+            tail_y = y - 14
+            if 0 <= tail_y < max_y:
+                addstr(tail_y, x, " ")
+
+            drops[x] += 1
+            if drops[x] - 14 > max_y:
+                drops[x] = rand_int(-15, 0)
+                speeds[x] = rand_int(1, 2)
+
+        stdscr.refresh()
+        tick += 1
+        # 33ms delay targets a smooth ~30 FPS without pegging CPU
+        curses.napms(33)
+
+if __name__ == "__main__":
+    try:
+        curses.wrapper(main)
+    except KeyboardInterrupt:
+        pass
+
