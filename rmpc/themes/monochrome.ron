@@ -1,0 +1,68 @@
+#![enable(implicit_some)]
+(
+    // Menonaktifkan background warna agar terminal bspwm Anda tetap transparan tembus wallpaper
+    background_color: None, 
+    
+    // Palet warna minimalis monokrom (Teks putih bersih, muted abu-abu)
+    text_color: Some("#FFFFFF"),
+    header_color: Some("#FFFFFF"),
+    muted_text_color: Some("#666666"),
+    
+    // Warna penyorot baris menu atau daftar lagu yang dipilih
+    highlight_color: Some("#FFFFFF"),
+    highlight_background_color: Some("#1A1A1A"), 
+    
+    // Pengaturan pembatas jendela panel
+    borders: (
+        color: Some("#333333"), 
+        symbols: (
+            horizontal: "─",
+            vertical: "│",
+            top_left: "┌",
+            top_right: "┐",
+            bottom_left: "└",
+            bottom_right: "┘",
+        ),
+    ),
+
+    // Progress Bar tipis estetik hitam-putih
+    progress_bar: (
+        elapsed_color: Some("#FFFFFF"),
+        remain_color: Some("#333333"),
+        elapsed_char: "━",
+        remain_char: "─",
+    ),
+
+    // Simbol kontrol pemutar musik menggunakan Glif JetBrainsMono Nerd Font
+    status: (
+        state_play: "   ",
+        state_pause: "   ",
+        state_stop: "   ",
+    ),
+
+    // SYNTAX TERBARU: Penulisan kolom SongTableColumn langsung tanpa nested wrapper "kind"
+    song_table_format: [
+        (
+            prop: Property(Artist), 
+            width: "30%", 
+            alignment: Left,
+            label: "Artist",
+        ),
+        (
+            prop: Text(" ── "),
+            width: "6",
+        ),
+        (
+            prop: Property(Title), 
+            width: "54%", 
+            alignment: Left,
+            label: "Title",
+        ),
+        (
+            prop: Property(Duration), 
+            width: "10%", 
+            alignment: Right,
+            label: "Duration",
+        ),
+    ],
+)

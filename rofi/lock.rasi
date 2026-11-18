@@ -1,0 +1,45 @@
+configuration {
+    show-icons: false;
+}
+
+* {
+    background-color:            transparent;
+    text-color:                  #FFFFFF;
+    font:                        "JetBrains Mono 12";
+}
+
+window {
+    transparency:                "real";
+    location:                    center;
+    anchor:                      center;
+    fullscreen:                  false;
+    width:                       350px;
+    padding:                     30px;
+    
+    /* Membuat Kotak Melengkung di Tengah */
+    border:                      2px solid;
+    border-color:                #81A1C1; /* Warna border (Nord Blue) */
+    border-radius:               16px;    /* Tingkat kelengkungan sudut */
+    background-color:            #1E1E2EAA; /* Warna kotak transparan */
+}
+
+mainbox {
+    children:                    [ inputbar ];
+}
+
+inputbar {
+    spacing:                     10px;
+    padding:                     10px;
+    background-color:            #2E3440;
+    border-radius:               8px;
+    children:                    [ prompt, entry ];
+}
+
+prompt {
+    text-color:                  #A3BE8C;
+}
+
+entry {
+    placeholder:                 "Enter Password...";
+    placeholder-color:           #4C566A;
+}

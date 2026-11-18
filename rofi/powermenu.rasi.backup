@@ -1,0 +1,66 @@
+configuration {
+    show-icons:                 false;
+}
+
+/* ---- Pengaturan Jendela Utama ---- */
+window {
+    transparency:                "real";
+    location:                    center;
+    anchor:                      center;
+    fullscreen:                  false;
+    width:                       500px;
+    x-offset:                    0px;
+    y-offset:                    0px;
+
+    /* Tema Hitam Putih Elegan & Transparan */
+    background-color:            rgba(0, 0, 0, 0.65); /* Hitam transparan */
+    border:                      2px solid;
+    border-color:                rgba(255, 255, 255, 0.15); /* Garis tepi putih tipis */
+    border-radius:               12px;
+    cursor:                      "default";
+}
+
+/* ---- Kotak Pembungkus Utama ---- */
+mainbox {
+    background-color:            transparent;
+    orientation:                 vertical;
+    children:                    [ "listview" ];
+    padding:                     30px;
+}
+
+/* ---- Pengaturan List/Tombol ---- */
+listview {
+    background-color:            transparent;
+    columns:                     3;
+    lines:                       1;
+    spacing:                     20px;
+    layout:                      vertical;
+    fixed-height:                true;
+    fixed-columns:               true;
+}
+
+/* ---- Elemen Tombol ---- */
+element {
+    background-color:            rgba(255, 255, 255, 0.05); /* Putih sangat transparan */
+    text-color:                  #ffffff;
+    orientation:                 vertical;
+    border-radius:               10px;
+    padding:                     25px 0px;
+    cursor:                      pointer;
+}
+
+/* Animasi Transisi & Hover Elegan */
+element selected {
+    background-color:            #ffffff; /* Menjadi putih pekat saat dipilih */
+    text-color:                  #000000; /* Teks/Ikon menjadi hitam */
+    border-radius:               10px;
+}
+
+element-text {
+    background-color:            transparent;
+    text-color:                  inherit;
+    font:                        "JetBrainsMono Nerd Font 24";
+    cursor:                      inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+}

@@ -1,0 +1,123 @@
+
+configuration {
+    modes: "drun";
+    sorting-method: "normal";
+    show-icons: true;
+    matching: "regex";
+    drun-match-fields: "name";
+    display-run: "menu:";
+    display-drun: "Launch:";
+}
+
+@theme "~/.config/rofi/tokyo.rasi"
+
+* {
+    font: "JetBrainsMono Nerd Font 11";
+    background-color: transparent;
+    text-color: @fg0;
+
+    margin: 0px;
+    padding: 0px;
+    spacing: 0px;
+}
+
+/* ===== Window ===== */
+window {
+    location: center;
+    width: 500;
+    y-offset: -20;
+
+    border-radius: 0px;
+    border: 0px;
+    border-color: #ffffff;
+
+    background-color: #00000033;
+}
+
+/* ===== Main container ===== */
+mainbox {
+    padding: 0px;
+    background-color: #171723;
+}
+
+/* ===== Input bar ===== */
+inputbar {
+    background-color: #171723;
+    border-radius: 0px;
+    border: 0px;
+    border-color: #ffffff;
+
+    padding: 8px 16px;
+    spacing: 8px;
+}
+
+prompt {
+    text-color: @cyan;
+    background-color: transparent;
+}
+
+entry {
+    text-color: @fg0;
+    placeholder: "search";
+    placeholder-color: @cyan;
+    background-color: #171723;
+}
+
+/* ===== List ===== */
+listview {
+    background-color: #171723;
+    margin: 10px 0 0;
+
+    columns: 1;
+    lines: 6;
+    fixed-height: false;
+}
+
+/* ===== Elements ===== */
+element {
+    padding: 10px 6px;
+    spacing: 6px;
+    border-radius: 0px;
+
+    background-color: #171723;
+}
+
+element normal urgent {
+    text-color: @red;
+}
+
+element normal active {
+    text-color: @blue;
+}
+
+element selected normal,
+element selected active {
+    background-color: #B0CCE6;
+}
+
+/* ===== Icons & text ===== */
+element-icon {
+    size: 1em;
+    vertical-align: 0.5;
+}
+
+element-text {
+    text-color: inherit;
+    background-color: transparent;
+}
+
+/* ===== Message box ===== */
+message {
+    margin: 12px 0 0;
+    border-radius: 0px;
+    border: 0px;
+    border-color: #000000;
+
+    background-color: #171723;
+}
+
+textbox {
+    padding: 8px 24px;
+    background-color: transparent;
+}
+

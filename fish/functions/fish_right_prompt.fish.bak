@@ -1,0 +1,13 @@
+function fish_right_prompt
+    set cpu_usage (top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1}')
+    set ram_total (free -m | awk '/Mem:/ {printf "%.1fG", $2/1024}')
+    set ram_used (free -m | awk '/Mem:/ {printf "%.1fG", $3/1024}')
+    set disk_total (df -BG / | awk 'NR==2 {print $2}')
+    set disk_used (df -BG / | awk 'NR==2 {print $3}')
+    echo -n -s (set_color B9D4E3) " $cpu_usage% " \
+        (set_color B9D4E3) " $ram_used " \
+        (set_color B9D4E3) " $disk_used/$disk_total "
+    set_color B9D4E3
+    date '+%H:%M:%S'
+    set_color normal
+end

@@ -1,0 +1,3 @@
+function nmtui --description "alias nmtui=NEWT_COLORS='root=#171723,#171723;window=#171723,#171723;border=#4A4D60,#171723;title=#ABD0E3,#171723;textbox=#D0DCD4,#171723;listbox=#D0DCD4,#171723;actlistbox=#171723,#ABD0E3;checkbox=#ABD0E3,#171723;actcheckbox=#171723,#ABD0E3;entry=#D0DCD4,#4A4D60;button=#171723,#ABD0E3;actbutton=#171723,#D0DCD4' command nmtui"
+    NEWT_COLORS='root=#171723,#171723;window=#171723,#171723;border=#4A4D60,#171723;title=#ABD0E3,#171723;textbox=#D0DCD4,#171723;listbox=#D0DCD4,#171723;actlistbox=#171723,#ABD0E3;checkbox=#ABD0E3,#171723;actcheckbox=#171723,#ABD0E3;entry=#D0DCD4,#4A4D60;button=#171723,#ABD0E3;actbutton=#171723,#D0DCD4' command nmtui $argv
+end

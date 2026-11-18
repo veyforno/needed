@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# Opsi Ikon (Menggunakan Nerd Fonts)
+shutdown="⏼"
+reboot=""
+lock=""
+
+# Gabungkan opsi ke dalam Rofi
+chosen=$(echo -e "$shutdown\n$reboot\n$lock" | rofi -dmenu -theme ~/.config/rofi/powermenu.rasi)
+
+# Aksi berdasarkan pilihan
+case "$chosen" in
+    "$shutdown")
+        systemctl poweroff
+        ;;
+    "$reboot")
+        systemctl reboot
+        ;;
+    "$lock")
+        # Menggunakan i3lock atau pengunci layar pilihan Anda
+        betterlockscreen -l dimblur --fx fade
+        ;;
+esac
