@@ -1,0 +1,30 @@
+#STYLUS 1
+*:not(i):not([class*="icon"]):not([class*="symbol"]):not([class*="material"]):not([class*="img"]),
+*::before,
+*::after {
+    font-family: "JetBrainsMono Nerd Font", "Twemoji Mozilla", "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif !important;
+    border-radius: 0 !important;
+}
+
+
+##STYLUS 2
+*,
+*::before,
+*::after {
+    border-radius: 0 !important;
+}
+body, p, h1, h2, h3, h4, h5, h6, a, li, td, th, input, textarea, select, pre, code,
+div:not([class*="icon"]):not([class*="symbol"]),
+span:not([class*="icon"]):not([class*="symbol"]):not([aria-hidden="true"]) {
+    font-family: "JetBrainsMono Nerd Font", "Twemoji Mozilla", "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif !important;
+}
+
+
+#userChrome.css
+* {
+  border-radius: 0px !important;
+}
+:root {
+  --tab-border-radius: 0px !important;
+  --toolbarbutton-border-radius: 0px !important;
+}
