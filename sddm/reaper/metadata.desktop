@@ -1,0 +1,20 @@
+# metadata.desktop
+# SDDM reads this file first to learn what your theme is.
+
+[SddmGreeterTheme]
+# Name shown in theme pickers
+Name=Reaper
+Description=Minimal black and white login screen with a big clock
+Author=you
+Version=1.0
+# Always "sddm-theme"
+Type=sddm-theme
+# The QML file SDDM starts with
+MainScript=Main.qml
+# The file holding the settings you can tweak (colors, font, background)
+ConfigFile=theme.conf
+# Unique id for the theme
+Theme-Id=reaper
+Theme-API=2.0
+# 6 = Qt6 (current Arch sddm). Change to 5 if you run an old Qt5 sddm.
+QtVersion=6
